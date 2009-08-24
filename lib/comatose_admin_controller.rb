@@ -1,5 +1,6 @@
 # The controller for serving cms content...
-class ComatoseAdminController < ActionController::Base
+# class ComatoseAdminController < ActionController::Base
+class ComatoseAdminController < ApplicationController
   unloadable
     
   define_option :original_template_root, nil
@@ -12,6 +13,7 @@ class ComatoseAdminController < ActionController::Base
   # Shows the page tree
   def index
     @root_pages = [fetch_root_page].flatten
+    @locale = get_current_locale
   end
 
   # Edit a specfic page (posts back)
@@ -38,6 +40,7 @@ class ComatoseAdminController < ActionController::Base
     if request.post?
       @page = ComatosePage.new params[:page]
       @page.author = fetch_author_name
+#       @page.locale = Comatose.config.default_locale
       if @page.save
         flash[:notice] = "Created page '#{@page.title}'"
         redirect_to :controller=>self.controller_name, :action=>'index'
@@ -99,6 +102,7 @@ class ComatoseAdminController < ActionController::Base
   # Returns a preview of the page content...
   def preview
     begin
+      logger.debug "preview.params[:page]: #{params[:page]}"
       page = ComatosePage.new(params[:page])
       page.author = fetch_author_name
       if params.has_key? :version
@@ -111,6 +115,7 @@ class ComatoseAdminController < ActionController::Base
     rescue
       content = "<p>There was an error generating the preview.</p><p><pre>#{$!.to_s.gsub(/\</, '&lt;')}</pre></p>"
     end
+    logger.debug "preview.content: #{content}"
     render :text=>content, :layout => false
   end
 
@@ -192,6 +197,17 @@ protected
       send(Comatose.config.admin_get_root_page)
     elsif defined? get_root_page
       get_root_page
+    end      
+  end
+  
+  # Can be overridden -- return your root comtase page
+  def fetch_default_locale
+    if Comatose.config.admin_get_locale.is_a? Proc
+      instance_eval &Comatose.config.admin_get_locale
+    elsif Comatose.config.admin_get_locale.is_a? Symbol
+      send(Comatose.config.admin_get_locale)
+    elsif defined? get_locale
+      get_locale
     end      
   end
 

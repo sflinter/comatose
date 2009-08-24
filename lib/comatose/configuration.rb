@@ -37,6 +37,7 @@ module Comatose
     attr_accessor_with_default :helpers,              []
     attr_accessor_with_default :includes,             []
     attr_accessor_with_default :allow_import_export,  true
+    attr_accessor_with_default :default_locale,       'en'
 
     # 'Blockable' setters
     blockable_attr_accessor    :authorization
@@ -59,7 +60,6 @@ module Comatose
       raise ConfigurationError.new( "admin_get_author must be a Proc or Symbol" ) unless @admin_get_author.is_a? Proc or @admin_get_author.is_a? Symbol
       raise ConfigurationError.new( "admin_authorization must be a Proc or Symbol" ) unless @admin_authorization.is_a? Proc or @admin_authorization.is_a? Symbol
       raise ConfigurationError.new( "authorization must be a Proc or Symbol" ) unless @authorization.is_a? Proc or @authorization.is_a? Symbol
-      true
     end
     
     class ConfigurationError < StandardError; end

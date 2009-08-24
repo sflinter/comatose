@@ -1,5 +1,6 @@
 # The controller for serving cms content...
-class ComatoseController < ActionController::Base 
+# class ComatoseController < ActionController::Base 
+class ComatoseController < ApplicationController
   unloadable
   
   before_filter :handle_authorization, :set_content_type
@@ -8,7 +9,7 @@ class ComatoseController < ActionController::Base
   # Render a specific page
   def show
     page_name, page_ext = get_page_path
-    page = ComatosePage.find_by_path( page_name )
+    page = ComatosePage.find_by_path_and_locale( page_name, get_current_locale )
     status = nil
     if page.nil?
       page = ComatosePage.find_by_path( '404' )

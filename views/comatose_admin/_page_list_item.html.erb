@@ -40,7 +40,7 @@ collapse_children = (level >= Comatose.config.default_tree_level)
     </tr>
     <tr>
       <td class="commands">
-        Updated <span title="Created on <%= page.created_on %>"><%= time_ago_in_words page.updated_on, true %> ago</span><%= " by #{page.author}" unless page.author.nil? or page.author.empty? %>,
+        Updated <span title="Created on <%= page.created_on %>"><%= time_ago_in_words page.updated_on, true %> ago</span><%= " by #{page.author}" unless page.author.nil? or page.author.empty? %>, <%= page.locale %>
         <%= links.join(', ') %>.
       </td>
     </tr>
@@ -48,7 +48,9 @@ collapse_children = (level >= Comatose.config.default_tree_level)
 
   <ul id="page_list_<%= page.id %>" old="lvl-<%= page.id %>" class="page-list <%= 'collapsed' if collapse_children %>" >
     <% for child in page.children %>
-      <%= render :partial=>'page_list_item', :locals=>{ :page=>child, :level=>level+1 } %>
+      <% if child.locale == locale %>
+        <%= render :partial=>'page_list_item', :locals=>{ :page=>child, :level=>level+1, :locale => locale } %>
+      <% end %>
     <% end %>
   </ul>
 

@@ -1,5 +1,5 @@
 <div class="action">
-  <%= link_to 'Clear Page Cache', :controller=>controller.controller_name, :action=>'expire_page_cache' %>
+<%= link_to 'Clear Page Cache', :controller=>controller.controller_name, :action=>'expire_page_cache' %>
 <% if Comatose.config.allow_import_export %>
   <%= link_to 'Import', '#', :id => 'import_link2', :onclick => "$('import_form').setStyle({display: 'inline'}); return false;" %>
   <%= link_to 'Export', :controller=>controller.controller_name, :action=>'export' %>
@@ -13,14 +13,14 @@
 <% end %>
 </div>
   
-<h1>
+<div id="main_content_title">
   Page List
   <%= image_tag 'comatose/spinner.gif', :id=>'spinner', :align=>'absmiddle', :style=>'display:none;' %>
-</h1>
+</div>
 
 <ul class="page-list root">
 <% @root_pages.each do |page| %>
-  <%= render :partial=>'page_list_item', :locals=>{ :page=>page, :level=>1 } %>
+  <%= render :partial=>'page_list_item', :locals=>{ :page=>page, :level=>1, :locale => @locale } %>
 <% end %>
 </ul>
 

@@ -41,7 +41,7 @@ class ComatosePage < ActiveRecord::Base
   end
 
   validates_presence_of :title, :on => :save, :message => "must be present"
-  validates_uniqueness_of :slug, :on => :save, :scope=>'parent_id', :message => "is already in use"
+  validates_uniqueness_of :slug, :on => :save, :scope=> ['parent_id', :locale], :message => "is already in use motherfucker"
   validates_presence_of :parent_id, :on=>:create, :message=>"must be present"
 
   # Tests ERB/Liquid content...
@@ -95,6 +95,16 @@ class ComatosePage < ActiveRecord::Base
      find( :first, :conditions=>[ 'full_path = ?', path ] )
   end
   
+  # Returns a Page with a matching path.
+  def self.find_by_path_and_locale( path, locale = Comatose.config.default_locale )
+     path = path.split('.')[0] unless path.empty? # Will ignore file extension...
+     path = path[1..-1] if path.starts_with? "/"
+     page = find( :first, :conditions=>[ 'full_path = ? AND locale = ?', path, locale ] )
+    if page.blank?
+      page = find( :first, :conditions=>[ 'full_path = ? AND locale = ?', path, Comatose.config.default_locale ] )
+    end
+    page
+  end
 # Overrides...
 
   # I don't want the AR magic timestamping support for this class...

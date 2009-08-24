@@ -33,9 +33,16 @@
   </tr>
 <% end %>
 
+<% if show_field? 'locale' %>
+  <tr id="locale_row" class="meta-info">
+    <td class="label"><label for="page_locale">Locale</label></td>
+    <td class="field"><%= f.select(:locale, AdminType::LOCALES) %></td>
+  </tr>
+<% end %>
+
   <tr>
     <td class="label body"><label for="page_body">Body</label></td>
-    <td class="field"><%= f.text_area :body, :rows=>20, :tabindex=>2 %></td>
+    <td class="field"><%= f.text_area :body, :rows=>30, :cols => 80, :tabindex=>2 %></td>
   </tr>
 
 <% if show_field? 'filter' %>
@@ -65,7 +72,8 @@
     <label>
       Updated <%= time_ago_in_words @page.updated_on, true %> ago by
       <%= @page.author %>.
-      <%= link_to(pluralize(@page.versions.length, 'revision', 'revisions'), :action=>'versions', :id=>@page) if @page.versions.length > 0 %>
+      <%= link_to(pluralize(@page.versions.length, 'revision', 'revisions'), :action=>'versions', :id=>@page) if @page.versions.length > 0 %>.
+      Written in locale <%= @page.locale %>.
     </label>
   </div>
 <% end %>
