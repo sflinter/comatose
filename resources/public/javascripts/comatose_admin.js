@@ -121,7 +121,8 @@ var ComatoseEditForm = {
       'parent_row',
       'keywords_row',
       'filter_row',
-      'created_row'
+      'created_row',
+      'locale_row'
     );
     $('page_title').select();
     // Create the horizontal liquidity of the fields
@@ -156,7 +157,8 @@ var ComatoseEditForm = {
         'keywords_row',
         'parent_row',
         'filter_row',
-        'created_row'
+        'created_row',
+        'locale_row'
       );
       anchor.innerHTML = 'Less...';
     } else {
@@ -165,7 +167,8 @@ var ComatoseEditForm = {
         'keywords_row',
         'parent_row',
         'filter_row',
-        'created_row'
+        'created_row',
+        'locale_row'
       );
       anchor.innerHTML = 'More...';
     }

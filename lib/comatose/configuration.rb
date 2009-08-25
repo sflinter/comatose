@@ -55,7 +55,7 @@ module Comatose
       @admin_get_author    = Proc.new { request.env['REMOTE_ADDR'] }
       @admin_get_root_page = Proc.new { ComatosePage.root }
       @after_setup         = Proc.new { true }
-      @current_locale      = Proc.new { true }
+      @current_locale      = Proc.new { 'en' }
     end
     
     def validate!

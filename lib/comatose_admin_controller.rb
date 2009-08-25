@@ -13,7 +13,7 @@ class ComatoseAdminController < ApplicationController
   # Shows the page tree
   def index
     @root_pages = [fetch_root_page].flatten
-    @locale = Comatose.config.current_locale
+    @locale = fetch_current_locale
   end
 
   # Edit a specfic page (posts back)
@@ -201,13 +201,13 @@ protected
   end
   
   # Can be overridden -- return your root comtase page
-  def fetch_default_locale
-    if Comatose.config.admin_get_locale.is_a? Proc
-      instance_eval &Comatose.config.admin_get_locale
-    elsif Comatose.config.admin_get_locale.is_a? Symbol
-      send(Comatose.config.admin_get_locale)
-    elsif defined? get_locale
-      get_locale
+  def fetch_current_locale
+    if Comatose.config.current_locale.is_a? Proc
+      instance_eval &Comatose.config.current_locale
+    elsif Comatose.config.current_locale.is_a? Symbol
+      send(Comatose.config.current_locale)
+    elsif defined? current_locale
+      current_locale
     end      
   end
 
