@@ -10,6 +10,7 @@ class <%= class_name %> < ActiveRecord::Migration
   # Upgrades schema from version 0.6 to version 0.7 
   def self.up
     add_column :comatose_pages, "version", :integer
+    add_column :comatose_pages, "locale", :string, :default => 'en'
     Comatose::Page.create_versioned_table
   end
 
@@ -17,6 +18,7 @@ class <%= class_name %> < ActiveRecord::Migration
   def self.down
     Comatose::Page.drop_versioned_table
     remove_column :comatose_pages, "version"
+    remove_column :comatose_pages, "locale"
   end
 
 end

@@ -9,7 +9,7 @@ class ComatoseController < ApplicationController
   # Render a specific page
   def show
     page_name, page_ext = get_page_path
-    page = ComatosePage.find_by_path_and_locale( page_name, get_current_locale )
+    page = ComatosePage.find_by_path_and_locale( page_name, Comatose.config.current_locale )
     status = nil
     if page.nil?
       page = ComatosePage.find_by_path( '404' )

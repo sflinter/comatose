@@ -36,7 +36,7 @@
 <% if show_field? 'locale' %>
   <tr id="locale_row" class="meta-info">
     <td class="label"><label for="page_locale">Locale</label></td>
-    <td class="field"><%= f.select(:locale, AdminType::LOCALES) %></td>
+    <td class="field"><%= f.select(:locale, Comatose.config.locales) %></td>
   </tr>
 <% end %>
 

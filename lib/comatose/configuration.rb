@@ -38,6 +38,7 @@ module Comatose
     attr_accessor_with_default :includes,             []
     attr_accessor_with_default :allow_import_export,  true
     attr_accessor_with_default :default_locale,       'en'
+    attr_accessor_with_default :locales,              [['English', 'en']]
 
     # 'Blockable' setters
     blockable_attr_accessor    :authorization
@@ -45,6 +46,7 @@ module Comatose
     blockable_attr_accessor    :admin_get_author
     blockable_attr_accessor    :admin_get_root_page
     blockable_attr_accessor    :after_setup
+    blockable_attr_accessor    :current_locale
 
     def initialize
       # Default procs for blockable attrs....
@@ -53,6 +55,7 @@ module Comatose
       @admin_get_author    = Proc.new { request.env['REMOTE_ADDR'] }
       @admin_get_root_page = Proc.new { ComatosePage.root }
       @after_setup         = Proc.new { true }
+      @current_locale      = Proc.new { true }
     end
     
     def validate!
@@ -60,6 +63,7 @@ module Comatose
       raise ConfigurationError.new( "admin_get_author must be a Proc or Symbol" ) unless @admin_get_author.is_a? Proc or @admin_get_author.is_a? Symbol
       raise ConfigurationError.new( "admin_authorization must be a Proc or Symbol" ) unless @admin_authorization.is_a? Proc or @admin_authorization.is_a? Symbol
       raise ConfigurationError.new( "authorization must be a Proc or Symbol" ) unless @authorization.is_a? Proc or @authorization.is_a? Symbol
+      raise ConfigurationError.new( "current_locale must be a Proc or Symbol" ) unless @current_locale.is_a? Proc or @current_locale.is_a? Symbol
     end
     
     class ConfigurationError < StandardError; end

@@ -41,7 +41,7 @@ class ComatosePage < ActiveRecord::Base
   end
 
   validates_presence_of :title, :on => :save, :message => "must be present"
-  validates_uniqueness_of :slug, :on => :save, :scope=> ['parent_id', :locale], :message => "is already in use motherfucker"
+  validates_uniqueness_of :slug, :on => :save, :scope=> ['parent_id', :locale], :message => "is already in use"
   validates_presence_of :parent_id, :on=>:create, :message=>"must be present"
 
   # Tests ERB/Liquid content...

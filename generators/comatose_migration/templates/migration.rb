@@ -18,6 +18,7 @@ class <%= class_name %> < ActiveRecord::Migration
       t.string    "filter_type", :limit => 25, :default => "Textile"
       t.string    "author",      :limit => 255
       t.integer   "position",    :default => 0
+      t.string    "locale",      :default => 'en'
       t.integer   "version"
       t.datetime  "updated_on"
       t.datetime  "created_on"

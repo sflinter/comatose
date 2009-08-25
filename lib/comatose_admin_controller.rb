@@ -13,7 +13,7 @@ class ComatoseAdminController < ApplicationController
   # Shows the page tree
   def index
     @root_pages = [fetch_root_page].flatten
-    @locale = get_current_locale
+    @locale = Comatose.config.current_locale
   end
 
   # Edit a specfic page (posts back)
