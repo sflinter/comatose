@@ -48,9 +48,9 @@ collapse_children = (level >= Comatose.config.default_tree_level)
 
   <ul id="page_list_<%= page.id %>" old="lvl-<%= page.id %>" class="page-list <%= 'collapsed' if collapse_children %>" >
     <% for child in page.children %>
-      <% if child.locale == locale %>
+<!--       <% if child.locale == locale %> -->
         <%= render :partial=>'page_list_item', :locals=>{ :page=>child, :level=>level+1, :locale => locale } %>
-      <% end %>
+<!--       <% end %> -->
     <% end %>
   </ul>
 

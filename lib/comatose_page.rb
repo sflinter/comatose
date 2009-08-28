@@ -20,7 +20,7 @@ class ComatosePage < ActiveRecord::Base
   
   define_option :active_mount_info, {:root=>'', :index=>''}
 
-  acts_as_tree :order => "position, title"
+  acts_as_tree :order => "position, title, locale"
   acts_as_list :scope => :parent_id
 
   #before_create :create_full_path
